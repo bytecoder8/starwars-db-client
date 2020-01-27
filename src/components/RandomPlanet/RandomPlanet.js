@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './RandomPlanet.css'
-import MockApiService from '../../services/MockApiService'
 import Loader from '../Loader'
 
 export default class RandomPlanet extends Component {
+
+  static propTypes = {
+    apiService: PropTypes.object.isRequired
+  }
 
   displayFields = [
     'name', 'population', 'diameter', 'rotationPeriod', 'orbitalPeriod',
@@ -22,15 +26,20 @@ export default class RandomPlanet extends Component {
     terrain: '',
     surfaceWater: ''
   }
-  api = new MockApiService()
+
+  constructor(props) {
+    super(props)
+
+    this.apiService = this.props.apiService
+  }
 
   componentDidMount() {
     this.updateData()
   }
 
   async updateData() {
-    const id = Math.floor(Math.random() * MockApiService.MAX_PLANETS) + 1
-    const planet = await this.api.getPlanet(id)
+    const id = Math.floor(Math.random() * 10) + 1
+    const planet = await this.apiService.getPlanet(id)
     this.setState({ ...planet, isLoading: false })
   }
 
