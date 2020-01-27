@@ -16,7 +16,7 @@ class SWApiService {
 
   async getAllPeople() {
     const res = await this.getResource('/people')
-    return res.results
+    return res.results.map( person => this._transformPerson(person))
   }
 
   async getPerson(id) {
@@ -26,7 +26,7 @@ class SWApiService {
 
   async getAllPlanets() {
     const res = await this.getResource('/planets')
-    return res.map( planet => this._transformPlanet(planet))
+    return res.results.map( planet => this._transformPlanet(planet))
   }
 
   async getPlanet(id) {
@@ -36,7 +36,7 @@ class SWApiService {
 
   async getAllShips() {
     const res = await this.getResource('/ships')
-    return res.map( ship => this._transformShip(ship))
+    return res.results.map( ship => this._transformShip(ship))
   }
 
   async getShip(id) {
@@ -49,8 +49,9 @@ class SWApiService {
   }
 
   _transformPlanet(planet) {
+    const id = this._extractId(planet)
     return ({
-      id: this._extractId(planet),
+      id,
       name: planet.name,
       population: planet.population,
       diameter: planet.diameter,
@@ -58,7 +59,8 @@ class SWApiService {
       orbitalPeriod: planet.orbital_period,
       climate: planet.climate,
       terrain: planet.terrain,
-      surfaceWater: planet.surface_water
+      surfaceWater: planet.surface_water,
+      imageSrc: `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`
     })
   }
 

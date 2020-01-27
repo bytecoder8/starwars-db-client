@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import './RandomPlanet.css'
-import SWApiService from '../../services/SWApiService'
+import MockApiService from '../../services/MockApiService'
+import Loader from '../Loader'
 
 export default class RandomPlanet extends Component {
 
+  displayFields = [
+    'name', 'population', 'diameter', 'rotationPeriod', 'orbitalPeriod',
+    'climate', 'terrain', 'surfaceWater'
+  ]
+
   state = {
+    isLoading: true,
     id: null,
     name: 'planet',
     population: 0,
@@ -15,33 +22,26 @@ export default class RandomPlanet extends Component {
     terrain: '',
     surfaceWater: ''
   }
-  api = new SWApiService()
+  api = new MockApiService()
 
   componentDidMount() {
     this.updateData()
   }
 
   async updateData() {
-    const id = Math.floor(Math.random() * SWApiService.MAX_PLANETS) + 1
-    const planet = { id }
-    // const planet = await this.api.getPlanet(id)
-    this.setState({
-      id,
-      name: planet.name,
-      population: planet.population,
-      diameter: planet.diameter,
-      rotationPeriod: planet.rotation_period,
-      orbitalPeriod: planet.orbital_period,
-      climate: planet.climate,
-      terrain: planet.terrain,
-      surfaceWater: planet.surface_water
-    })
+    const id = Math.floor(Math.random() * MockApiService.MAX_PLANETS) + 1
+    const planet = await this.api.getPlanet(id)
+    this.setState({ ...planet, isLoading: false })
   }
 
   render() {
-    const { id, name } = this.state
+    const { name, imgSrc, isLoading } = this.state
 
-    const elements = Object.keys(this.state).map( key => (
+    if (isLoading) {
+      return(<Loader />)
+    }
+
+    const elements = this.displayFields.map( key => (
       <li
         className="list-group-item d-flex justify-content-between align-items-center"
         key={ key }
@@ -59,7 +59,7 @@ export default class RandomPlanet extends Component {
         <div className="card-body d-flex justify-content-between">
           <div className="planet-image w-25">
             <img
-              src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+              src={ imgSrc }
               className="img-fluid"
               alt="Planet"
             />
