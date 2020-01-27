@@ -1,10 +1,11 @@
 import React from 'react';
+import Navbar from './components/Navbar'
 
 
 function App() {
   return (
-    <div className="App">
-      Star Wars DB Client
+    <div className="container">
+      <Navbar />
     </div>
   );
 }
