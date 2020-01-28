@@ -48,7 +48,8 @@ export default class RandomPlanet extends Component {
 
     return(
       <div className="random-planet card w-50">
-        { isLoading ? <Loader /> : <ViewPlanet planet={planet} /> }
+        { isLoading ? <div className="ml-auto mr-auto align-self-center"><Loader /></div> 
+                    : <ViewPlanet planet={planet} /> }
       </div>
     )
   }

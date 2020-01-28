@@ -7,32 +7,39 @@ class MockApiService {
     return 61
   }
 
+  _delay = process.env.REACT_APP_MOCK_API_DELAY
+
+  _delayed(data) {
+    return new Promise( (resolve, reject) => {
+      setTimeout(() => {
+        resolve(data)
+      }, this._delay)
+    })
+  }
+
   getResource(url) {
     return Promise.resolve({
-
     })
   }
 
   getAllPeople() {
-    return Promise.resolve([
+    return this._delayed([
 
     ])
   }
 
   getPerson(id) {
-    return Promise.resolve({
+    return this._delayed({
       id
     })
   }
 
   getAllPlanets() {
-    return Promise.resolve([
-
-    ])
+    return this._delayed([])
   }
 
   getPlanet(id) {
-    return Promise.resolve({
+    return this._delayed({
       id,
       name: faker.name.firstName(),
       population: faker.random.number(100000000),
@@ -46,13 +53,13 @@ class MockApiService {
   }
 
   getAllShips() {
-    return Promise.resolve([
+    return this._delayed([
 
     ])
   }
 
   getShip(id) {
-    return Promise.resolve({
+    return this._delayed({
 
     })
   }
