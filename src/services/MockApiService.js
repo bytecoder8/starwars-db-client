@@ -22,16 +22,30 @@ class MockApiService {
     })
   }
 
-  getAllPeople() {
-    return this._delayed([
+  _generatePerson(id) {
+    const gender = faker.random.arrayElement(['male', 'female'])
+    return {
+      id,
+      name: faker.name.findName(null, null, gender),
+      height: faker.random.number({ min: 150, max: 200 }),
+      mass: faker.random.number({ min: 50, max: 200 }),
+      hairColor: faker.internet.color(),
+      skinColor: faker.internet.color(),
+      eyeColor: faker.internet.color(),
+      birthYear: `${ faker.random.number(30) }BBY`,
+      gender: gender,
+    }
+  }
 
-    ])
+  getAllPeople() {
+    const items = Array.from(Array(10), (value, index) => {
+      return this._generatePerson(index + 1)
+    })
+    return this._delayed(items)
   }
 
   getPerson(id) {
-    return this._delayed({
-      id
-    })
+    return this._delayed(this._generatePerson(id))
   }
 
   getAllPlanets() {

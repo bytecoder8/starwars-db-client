@@ -20,7 +20,7 @@ class SWApiService {
   }
 
   async getPerson(id) {
-    const res = this.getResource(`/people/${id}`)
+    const res = await this.getResource(`/people/${id}`)
     return this._transformPerson(res)
   }
 
@@ -67,7 +67,14 @@ class SWApiService {
   _transformPerson(person) {
     return ({
       id: this._extractId(person),
-      name: person.name
+      name: person.name,
+      height: person.height,
+      mass: person.mass,
+      hairColor: person.hair_color,
+      skinColor: person.skin_color,
+      eyeColor: person.eye_color,
+      birthYear: person.birth_year,
+      gender: person.gender
     })
   }
 
