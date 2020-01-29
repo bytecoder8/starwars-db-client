@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../Loader'
+import ErrorMessage from '../ErrorMessage'
 
 
 export class PersonDetails extends Component {
@@ -8,12 +9,14 @@ export class PersonDetails extends Component {
     personId: PropTypes.oneOfType([
       PropTypes.string.isRequired,
       PropTypes.number.isRequired
-    ])
+    ]),
+    apiService: PropTypes.object.isRequired
   }
 
   state = {
     person: {},
-    isLoading: true
+    isLoading: true,
+    error: null
   }
 
   componentDidMount() {
@@ -26,21 +29,36 @@ export class PersonDetails extends Component {
     }
   }
 
-  async updateData() {
-    const { personId, apiService } = this.props
-
-    this.setState({ isLoading: true })
-
-    const person = await apiService.getPerson(personId)
+  onError = error => {
     this.setState({
-      person,
-      isLoading: false
+      isLoading: false,
+      error
     })
   }
 
+  updateData() {
+    const { personId, apiService } = this.props
+
+    this.setState({ isLoading: true, error: null })
+
+    apiService
+      .getPerson(personId)
+      .then( person => {
+        this.setState({
+          person,
+          isLoading: false
+        })
+      })
+      .catch(this.onError)
+  }
+
   render() {
-    const { isLoading, person } = this.state
+    const { isLoading, error, person } = this.state
     const { personId } = this.props
+
+    if (error) {
+      return <ErrorMessage error={ error } />
+    }
 
     if (isLoading) {
       return <Loader />

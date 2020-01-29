@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import './RandomPlanet.css'
 import Loader from '../Loader'
+import ErrorMessage from '../ErrorMessage'
 
 export default class RandomPlanet extends Component {
 
@@ -11,6 +12,7 @@ export default class RandomPlanet extends Component {
 
   state = {
     isLoading: true,
+    error: null,
     planet: {
       id: null,
       name: 'planet',
@@ -24,32 +26,40 @@ export default class RandomPlanet extends Component {
     }
   }
 
-  constructor(props) {
-    super(props)
-
-    this.apiService = this.props.apiService
-  }
-
   componentDidMount() {
     this.updateData()
   }
 
-  async updateData() {
-    const id = Math.floor(Math.random() * 10) + 1
-    const planet = await this.apiService.getPlanet(id)
+  onError = error => {
     this.setState({
-      planet,
-      isLoading: false
+      isLoading: false,
+      error
     })
   }
 
+  updateData() {
+    const { apiService } = this.props
+    const id = Math.floor(Math.random() * 10) + 1
+
+    apiService
+    .getPlanet(id)
+    .then( planet => {
+      this.setState({
+        planet,
+        isLoading: false
+      })
+    })
+    .catch(this.onError)
+  }
+
   render() {
-    const { isLoading, planet } = this.state
+    const { isLoading, error, planet } = this.state
 
     return(
       <div className="random-planet card w-50">
-        { isLoading ? <div className="ml-auto mr-auto align-self-center"><Loader /></div> 
-                    : <ViewPlanet planet={planet} /> }
+        { error && <ErrorMessage error={ error } />}
+        { isLoading && <div className="ml-auto mr-auto align-self-center"><Loader /></div> }
+        { (!isLoading && !error) && <ViewPlanet planet={planet} /> }
       </div>
     )
   }

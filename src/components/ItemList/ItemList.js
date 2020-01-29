@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../Loader'
 import './ItemList.css'
+import ErrorMessage from '../ErrorMessage'
 
 
 export class ItemList extends Component {
@@ -11,13 +12,15 @@ export class ItemList extends Component {
     selectedItemId: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ])
+    ]),
+    apiService: PropTypes.object.isRequired
   }
 
   state = {
     items: null,
     selectedItemId: this.props.selectedItemId,
-    isLoading: true
+    isLoading: true,
+    error: null
   }
   apiService = this.props.apiService
 
@@ -25,12 +28,23 @@ export class ItemList extends Component {
     this.updateData()
   }
 
-  async updateData() {
-    const items = await this.apiService.getAllPeople()
+  onError = error => {
     this.setState({
-      items,
-      isLoading: false
+      isLoading: false,
+      error
     })
+  }
+
+  updateData() {
+    this.apiService
+      .getAllPeople()
+      .then( items => {
+        this.setState({
+          items,
+          isLoading: false
+        })
+      })
+      .catch(this.onError)
   }
 
   selectItem = (id) => {
@@ -39,7 +53,11 @@ export class ItemList extends Component {
   }
 
   render() {
-    const { isLoading, selectedItemId, items } = this.state
+    const { isLoading, error, selectedItemId, items } = this.state
+
+    if (error) {
+      return <ErrorMessage error={ error } />
+    }
 
     if (isLoading) {
       return <Loader />
