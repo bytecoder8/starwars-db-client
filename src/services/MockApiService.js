@@ -37,22 +37,22 @@ class MockApiService {
     }
   }
 
-  getAllPeople() {
+  getAllPeople = () => {
     const items = Array.from(Array(10), (value, index) => {
       return this._generatePerson(index + 1)
     })
     return this._delayed(items)
   }
 
-  getPerson(id) {
+  getPerson = (id) => {
     return this._delayed(this._generatePerson(id))
   }
 
-  getAllPlanets() {
+  getAllPlanets = () => {
     return this._delayed([])
   }
 
-  getPlanet(id) {
+  getPlanet = (id) => {
     return this._delayed({
       id,
       name: faker.name.firstName(),
@@ -66,13 +66,23 @@ class MockApiService {
     })
   }
 
-  getAllShips() {
-    return this._delayed([
 
-    ])
+  _generateShip(id) {
+    return {
+      id,
+      name: faker.name.firstName(),
+      mass: faker.random.number({ min: 50, max: 200 }),
+    }
   }
 
-  getShip(id) {
+  getAllShips = () => {
+    const items = Array.from(Array(10), (value, index) => {
+      return this._generateShip(index + 1)
+    })
+    return this._delayed(items)
+  }
+
+  getShip = (id) => {
     return this._delayed({
       id,
       name: faker.name.firstName(),

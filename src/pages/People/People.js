@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
+import ApiContext from '../../context'
 import ItemList from '../../components/ItemList'
 import Row from '../../components/Row'
-import withApiService from '../../hocs/withApiService'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import './People.css'
 
-
-const ItemDetailsWrapped = withApiService(ItemDetails, 'getPerson')
 
 class People extends Component {
   state = {
@@ -22,21 +20,35 @@ class People extends Component {
   render() {
     const { personId } = this.state
 
-    const list = <ItemList
-      selectedItemId={ personId }
-      onItemSelected={ this.selectPerson }
-      renderItem={ item => `${item.name}` }
-    />
+    const list = 
+    <ApiContext.Consumer>
+      {
+        ({ getAllPeople }) => (
+          <ItemList
+            selectedItemId={ personId }
+            onItemSelected={ this.selectPerson }
+            renderItem={ item => `${item.name}` }
+            getData={ getAllPeople }
+          />
+        )
+      }
+    </ApiContext.Consumer>
 
-    
+
     const details = (
-      <ItemDetailsWrapped itemId={ personId }>
-        <Record field="height" label="Height" />
-        <Record field="gender" label="Gender" />
-        <Record field="birthYear" label="Birthyear" />
-        <Record field="eyeColor" label="Eye Color" />
-        <Record field="hairColor" label="Hair Color" />
-      </ItemDetailsWrapped>
+      <ApiContext.Consumer>
+        {
+          ({ getPerson }) => (
+            <ItemDetails itemId={ personId } getData={ getPerson }>
+              <Record field="height" label="Height" />
+              <Record field="gender" label="Gender" />
+              <Record field="birthYear" label="Birthyear" />
+              <Record field="eyeColor" label="Eye Color" />
+              <Record field="hairColor" label="Hair Color" />
+            </ItemDetails>
+          )
+        }
+      </ApiContext.Consumer>
     )
 
     return (
