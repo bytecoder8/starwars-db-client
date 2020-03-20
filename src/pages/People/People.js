@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ItemList from '../../components/ItemList'
+import Row from '../../components/Row'
 import PersonDetails from '../../components/PersonDetails'
 import './People.css'
 
@@ -18,21 +19,18 @@ class People extends Component {
   render() {
     const { personId } = this.state
 
+    const list = <ItemList
+      selectedItemId={ personId }
+      onItemSelected={ this.selectPerson }
+      renderItem={ (item) => item.name }
+    />
+
+    const details = <PersonDetails personId={ personId } />
+
     return (
       <div className="people-page">
         <h2 className="mt-4">People</h2>
-        <div className="row">
-          <div className="col-4">
-            <ItemList
-              selectedItemId={ personId }
-              onItemSelected={ this.selectPerson }
-              renderItem={ (item) => item.name }
-            />
-          </div>
-          <div className="col-6">
-            <PersonDetails personId={ personId } />
-          </div>
-        </div>
+        <Row left={ list } right={ details } />
       </div>
     )
   }

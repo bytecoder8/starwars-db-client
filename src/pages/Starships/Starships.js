@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ItemList from '../../components/ItemList'
+import Row from '../../components/Row'
 
 
 class Starships extends Component {
@@ -16,21 +17,16 @@ class Starships extends Component {
   render() {
     const { starshipId } = this.state
 
+    const list = <ItemList
+      selectedItemId={ starshipId }
+      onItemSelected={ this.selectStarship }
+      renderItem={ (item) => item.name }
+    />
+
     return (
       <div className="starships-page">
         <h2 className="mt-4">Starships</h2>
-        <div className="row">
-          <div className="col-4">
-            <ItemList
-              selectedItemId={ starshipId }
-              onItemSelected={ this.selectStarship }
-              renderItem={ (item) => item.name }
-            />
-          </div>
-          <div className="col-6">
-            
-          </div>
-        </div>
+        <Row left={ list } />
       </div>
     )
   }
