@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MockApiService from '../services/MockApiService'
 import SWApiService from '../services/SWApiService'
 
-function withApiService(WrappedComponent) {
+function withApiService(WrappedComponent, dataFunc) {
   return class extends Component {
     render() {
       const apiService = process.env.REACT_APP_API === 'mock'
@@ -11,7 +11,7 @@ function withApiService(WrappedComponent) {
       return(
         <WrappedComponent
           {...this.props}
-          apiService={apiService}
+          getData={apiService[dataFunc].bind(apiService)}
         />
       )
     }

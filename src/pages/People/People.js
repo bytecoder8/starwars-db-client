@@ -26,6 +26,7 @@ class People extends Component {
             <ItemList
               selectedItemId={ personId }
               onItemSelected={ this.selectPerson }
+              renderItem={ (item) => item.name }
             />
           </div>
           <div className="col-6">

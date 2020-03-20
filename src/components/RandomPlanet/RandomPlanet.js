@@ -7,7 +7,7 @@ import ErrorMessage from '../ErrorMessage'
 export default class RandomPlanet extends Component {
 
   static propTypes = {
-    apiService: PropTypes.object.isRequired
+    getData: PropTypes.func.isRequired
   }
 
   state = {
@@ -38,11 +38,10 @@ export default class RandomPlanet extends Component {
   }
 
   updateData() {
-    const { apiService } = this.props
+    const { getData } = this.props
     const id = Math.floor(Math.random() * 10) + 1
 
-    apiService
-    .getPlanet(id)
+    getData(id)
     .then( planet => {
       this.setState({
         planet,

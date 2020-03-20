@@ -10,7 +10,7 @@ export class PersonDetails extends Component {
       PropTypes.string.isRequired,
       PropTypes.number.isRequired
     ]),
-    apiService: PropTypes.object.isRequired
+    getData: PropTypes.func.isRequired
   }
 
   state = {
@@ -37,12 +37,11 @@ export class PersonDetails extends Component {
   }
 
   updateData() {
-    const { personId, apiService } = this.props
+    const { personId, getData } = this.props
 
     this.setState({ isLoading: true, error: null })
 
-    apiService
-      .getPerson(personId)
+    getData(personId)
       .then( person => {
         this.setState({
           person,

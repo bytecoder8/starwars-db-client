@@ -13,7 +13,8 @@ export class ItemList extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
-    apiService: PropTypes.object.isRequired
+    getData: PropTypes.func.isRequired,
+    renderItem: PropTypes.func.isRequired
   }
 
   state = {
@@ -22,7 +23,6 @@ export class ItemList extends Component {
     isLoading: true,
     error: null
   }
-  apiService = this.props.apiService
 
   componentDidMount() {
     this.updateData()
@@ -36,8 +36,8 @@ export class ItemList extends Component {
   }
 
   updateData() {
-    this.apiService
-      .getAllPeople()
+    this.props
+      .getData()
       .then( items => {
         this.setState({
           items,
@@ -54,6 +54,7 @@ export class ItemList extends Component {
 
   render() {
     const { isLoading, error, selectedItemId, items } = this.state
+    const { renderItem } = this.props
 
     if (error) {
       return <ErrorMessage error={ error } />
@@ -73,7 +74,7 @@ export class ItemList extends Component {
         <li className={ classNames }
           key={item.id}
           onClick={ () => this.selectItem(item.id) }
-        >{ item.name }</li>
+        >{ renderItem(item) }</li>
       )
     })
 
