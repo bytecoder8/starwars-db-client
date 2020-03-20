@@ -74,7 +74,8 @@ class MockApiService {
 
   getShip(id) {
     return this._delayed({
-
+      id,
+      name: faker.name.firstName(),
     })
   }
 
