@@ -6,13 +6,13 @@ import withApiService from '../../hocs/withApiService'
 import './People.css'
 
 
-const PersonDetails = withApiService(ItemDetails, {
+const PersonDetails = withApiService({
   getData: 'getPerson'
-})
+})(ItemDetails)
 
-const PeopleList = withApiService(ItemList, {
+const PeopleList = withApiService({
   getData: 'getAllPeople'
-})
+})(ItemList)
 
 class People extends Component {
   state = {

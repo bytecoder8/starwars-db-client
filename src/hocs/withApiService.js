@@ -3,7 +3,7 @@ import ApiContext from '../context'
 
 // Gets access to context and returns mapped methods from API
 // mapMethodsToProps is either a function or a plain object
-function withApiService(WrappedComponent, mapMethodsToProps) {
+const withApiService = (mapMethodsToProps) => (WrappedComponent) => {
   return class extends Component {
     render() {
       return(

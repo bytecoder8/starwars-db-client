@@ -5,13 +5,13 @@ import withApiService from '../../hocs/withApiService'
 import Row from '../../components/Row'
 
 
-const ShipDetails = withApiService(ItemDetails, {
+const ShipDetails = withApiService({
   getData: 'getShip'
-})
+})(ItemDetails)
 
-const ShipList = withApiService(ItemList, {
+const ShipList = withApiService({
   getData: 'getAllShips'
-})
+})(ItemList)
 
 class Starships extends Component {
   state = {
