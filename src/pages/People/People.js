@@ -3,6 +3,7 @@ import Row from '../../components/Row'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import ItemList from '../../components/ItemList'
 import withApiService from '../../hocs/withApiService'
+import ErrorBoundary from '../../components/ErrorBoundary'
 import './People.css'
 
 
@@ -47,7 +48,9 @@ class People extends Component {
     return (
       <div className="people-page">
         <h2 className="mt-4">People</h2>
-        <Row left={ list } right={ details } />
+        <ErrorBoundary>
+          <Row left={ list } right={ details } />
+        </ErrorBoundary>
       </div>
     )
   }

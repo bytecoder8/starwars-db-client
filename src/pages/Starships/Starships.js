@@ -3,6 +3,7 @@ import ItemList from '../../components/ItemList'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import withApiService from '../../hocs/withApiService'
 import Row from '../../components/Row'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 
 const ShipDetails = withApiService({
@@ -42,7 +43,9 @@ class Starships extends Component {
     return (
       <div className="starships-page">
         <h2 className="mt-4">Starships</h2>
-        <Row left={ list } right={ details } />
+        <ErrorBoundary>
+          <Row left={ list } right={ details } />
+        </ErrorBoundary>
       </div>
     )
   }
