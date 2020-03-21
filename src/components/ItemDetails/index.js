@@ -1,6 +1,1 @@
-import ItemDetails, { Record } from './ItemDetails'
-
-export default ItemDetails
-export {
-  Record
-}
+export { default,  Record } from './ItemDetails'

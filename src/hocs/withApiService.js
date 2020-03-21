@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import ApiContext from '../context'
 
-function withApiService(WrappedComponent, dataFunc) {
+// Gets access to context and returns mapped methods from API
+// mapMethodsToProps is either a function or a plain object
+function withApiService(WrappedComponent, mapMethodsToProps) {
   return class extends Component {
     render() {
       return(
         <ApiContext.Consumer>
           {
-            (apiService) => (
-            <WrappedComponent
-              {...this.props}
-              getData={apiService[dataFunc].bind(apiService)}
-            />
-            )
+            (apiService) => {
+              let mappedProps = {}
+              if (typeof mapMethodsToProps === 'function') {
+                mappedProps = mapMethodsToProps(apiService)
+              } else {
+                for (let [key, value] of Object.entries(mapMethodsToProps)) {
+                  mappedProps[key] = apiService[value]
+                }
+              }
+              
+              return(
+                <WrappedComponent {...this.props} {...mappedProps} />
+              )
+            }
           }
         </ApiContext.Consumer>
       )

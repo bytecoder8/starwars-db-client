@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
-import ApiContext from '../../context'
 import ItemList from '../../components/ItemList'
 import ItemDetails, { Record } from '../../components/ItemDetails'
+import withApiService from '../../hocs/withApiService'
 import Row from '../../components/Row'
 
+
+const ShipDetails = withApiService(ItemDetails, {
+  getData: 'getShip'
+})
+
+const ShipList = withApiService(ItemList, {
+  getData: 'getAllShips'
+})
 
 class Starships extends Component {
   state = {
@@ -20,31 +28,16 @@ class Starships extends Component {
     const { starshipId } = this.state
 
     const list = 
-    <ApiContext.Consumer>
-      {
-        ({ getAllShips }) => (
-          <ItemList
-            selectedItemId={ starshipId }
-            onItemSelected={ this.selectStarship }
-            renderItem={ (item) => item.name }
-            getData={ getAllShips }
-          />
-        )
-      }
-    </ApiContext.Consumer>
+      <ShipList
+        selectedItemId={ starshipId }
+        onItemSelected={ this.selectStarship }
+        renderItem={ (item) => item.name }
+      />
 
-
-    const details = (
-      <ApiContext.Consumer>
-        {
-          ({ getShip }) => (
-            <ItemDetails itemId={ starshipId } getData={ getShip }>
-              <Record field="name" label="Name" />
-            </ItemDetails>
-          )
-        }
-      </ApiContext.Consumer>
-    )
+    const details =
+      <ShipDetails itemId={ starshipId }>
+        <Record field="name" label="Name" />
+      </ShipDetails>
 
     return (
       <div className="starships-page">

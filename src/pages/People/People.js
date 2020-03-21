@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
-import ApiContext from '../../context'
-import ItemList from '../../components/ItemList'
 import Row from '../../components/Row'
 import ItemDetails, { Record } from '../../components/ItemDetails'
+import ItemList from '../../components/ItemList'
+import withApiService from '../../hocs/withApiService'
 import './People.css'
 
+
+const PersonDetails = withApiService(ItemDetails, {
+  getData: 'getPerson'
+})
+
+const PeopleList = withApiService(ItemList, {
+  getData: 'getAllPeople'
+})
 
 class People extends Component {
   state = {
@@ -21,35 +29,20 @@ class People extends Component {
     const { personId } = this.state
 
     const list = 
-    <ApiContext.Consumer>
-      {
-        ({ getAllPeople }) => (
-          <ItemList
-            selectedItemId={ personId }
-            onItemSelected={ this.selectPerson }
-            renderItem={ item => `${item.name}` }
-            getData={ getAllPeople }
-          />
-        )
-      }
-    </ApiContext.Consumer>
+      <PeopleList
+        selectedItemId={ personId }
+        onItemSelected={ this.selectPerson }
+        renderItem={ item => `${item.name}` }
+      />
 
-
-    const details = (
-      <ApiContext.Consumer>
-        {
-          ({ getPerson }) => (
-            <ItemDetails itemId={ personId } getData={ getPerson }>
-              <Record field="height" label="Height" />
-              <Record field="gender" label="Gender" />
-              <Record field="birthYear" label="Birthyear" />
-              <Record field="eyeColor" label="Eye Color" />
-              <Record field="hairColor" label="Hair Color" />
-            </ItemDetails>
-          )
-        }
-      </ApiContext.Consumer>
-    )
+    const details = 
+      <PersonDetails itemId={ personId }>
+        <Record field="height" label="Height" />
+        <Record field="gender" label="Gender" />
+        <Record field="birthYear" label="Birthyear" />
+        <Record field="eyeColor" label="Eye Color" />
+        <Record field="hairColor" label="Hair Color" />
+      </PersonDetails>
 
     return (
       <div className="people-page">
