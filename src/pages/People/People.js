@@ -3,6 +3,7 @@ import Row from '../../components/Row'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import ItemList from '../../components/ItemList'
 import withApiService from '../../hocs/withApiService'
+import withData from '../../hocs/withData'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import './People.css'
 
@@ -13,7 +14,7 @@ const PersonDetails = withApiService({
 
 const PeopleList = withApiService({
   getData: 'getAllPeople'
-})(ItemList)
+})(withData(ItemList))
 
 class People extends Component {
   state = {

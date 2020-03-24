@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Loader from '../Loader'
 import './ItemList.css'
-import ErrorMessage from '../ErrorMessage'
 
 
 export class ItemList extends Component {
@@ -13,7 +11,6 @@ export class ItemList extends Component {
       PropTypes.string,
       PropTypes.number
     ]),
-    getData: PropTypes.func.isRequired,
     renderItem: PropTypes.func
   }
 
@@ -23,40 +20,7 @@ export class ItemList extends Component {
   }
 
   state = {
-    items: null,
     selectedItemId: this.props.selectedItemId,
-    isLoading: true,
-    error: null
-  }
-
-  componentDidMount() {
-    this.updateData()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.getData !== prevProps.getData) { // on API change
-      this.updateData()
-    }
-  }
-
-  onError = error => {
-    this.setState({
-      isLoading: false,
-      error
-    })
-  }
-
-  updateData() {
-    this.props
-      .getData()
-      .then( items => {
-        this.setState({
-          items,
-          isLoading: false
-        })
-        this.selectItem(items[0].id)
-      })
-      .catch(this.onError)
   }
 
   selectItem = (id) => {
@@ -65,18 +29,10 @@ export class ItemList extends Component {
   }
 
   render() {
-    const { isLoading, error, selectedItemId, items } = this.state
-    const { renderItem } = this.props
+    const { selectedItemId } = this.state
+    const { data, renderItem } = this.props
 
-    if (error) {
-      return <ErrorMessage error={ error } />
-    }
-
-    if (isLoading) {
-      return <Loader />
-    }
-
-    const elements = items.map( item => {
+    const elements = data.map( item => {
       let classNames = 'list-group-item'
       if (item.id === selectedItemId) {
         classNames += ' active'

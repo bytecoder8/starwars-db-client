@@ -15,7 +15,6 @@ class App extends Component {
   }
 
   toggleService = () => {
-    console.log('clicked')
     this.setState( ({ apiService }) => {
       const Service = apiService instanceof SWApiService ? MockApiService : SWApiService
       return {

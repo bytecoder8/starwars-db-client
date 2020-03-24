@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ItemList from '../../components/ItemList'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import withApiService from '../../hocs/withApiService'
+import withData from '../../hocs/withData'
 import Row from '../../components/Row'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
@@ -12,7 +13,8 @@ const ShipDetails = withApiService({
 
 const ShipList = withApiService({
   getData: 'getAllShips'
-})(ItemList)
+})(withData(ItemList))
+
 
 class Starships extends Component {
   state = {

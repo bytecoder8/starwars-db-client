@@ -31,7 +31,7 @@ export class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.itemId !== this.props.itemId) {
+    if (prevProps.itemId !== this.props.itemId || prevProps.getData !== this.props.getData) {
       this.updateData()
     }
   }
@@ -68,6 +68,10 @@ export class ItemDetails extends Component {
 
     if (isLoading) {
       return <Loader />
+    }
+
+    if (!item) {
+      return <div>Select an item from the list</div>
     }
 
     return (
