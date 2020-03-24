@@ -33,6 +33,12 @@ export class ItemList extends Component {
     this.updateData()
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.getData !== prevProps.getData) { // on API change
+      this.updateData()
+    }
+  }
+
   onError = error => {
     this.setState({
       isLoading: false,
@@ -48,6 +54,7 @@ export class ItemList extends Component {
           items,
           isLoading: false
         })
+        this.selectItem(items[0].id)
       })
       .catch(this.onError)
   }

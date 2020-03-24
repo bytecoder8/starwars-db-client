@@ -9,14 +9,29 @@ import SWApiService from './services/SWApiService'
 
 
 class App extends Component {
+  state = {
+    apiService: process.env.REACT_APP_API === 'mock'
+                ? new MockApiService() : new SWApiService()
+  }
+
+  toggleService = () => {
+    console.log('clicked')
+    this.setState( ({ apiService }) => {
+      const Service = apiService instanceof SWApiService ? MockApiService : SWApiService
+      return {
+        apiService: new Service()
+      }
+    })
+  }
+
   render() {
-    const apiService = process.env.REACT_APP_API === 'mock'
-    ? new MockApiService() : new SWApiService()
+    const { apiService } = this.state
+    const serviceName = apiService instanceof SWApiService ? 'Server' : 'Mock'
 
     return (
       <ApiContext.Provider value={ apiService }>
         <div className="container">
-          <Navbar />
+          <Navbar onServiceChange={ this.toggleService } serviceName={ serviceName } />
           <h2>Random Planet</h2>
           <RandomPlanet />
           <PeoplePage />
