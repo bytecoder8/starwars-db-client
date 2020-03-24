@@ -16,7 +16,7 @@ export class ItemDetails extends Component {
     itemId: PropTypes.oneOfType([
       PropTypes.string.isRequired,
       PropTypes.number.isRequired
-    ]),
+    ]).isRequired,
     getData: PropTypes.func.isRequired
   }
 

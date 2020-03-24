@@ -32,7 +32,6 @@ class Starships extends Component {
       <ShipList
         selectedItemId={ starshipId }
         onItemSelected={ this.selectStarship }
-        renderItem={ (item) => item.name }
       />
 
     const details =

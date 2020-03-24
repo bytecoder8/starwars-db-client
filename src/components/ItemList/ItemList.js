@@ -14,7 +14,12 @@ export class ItemList extends Component {
       PropTypes.number
     ]),
     getData: PropTypes.func.isRequired,
-    renderItem: PropTypes.func.isRequired
+    renderItem: PropTypes.func
+  }
+
+  static defaultProps = {
+    onItemSelected: () => {},
+    renderItem: item => item.name
   }
 
   state = {
