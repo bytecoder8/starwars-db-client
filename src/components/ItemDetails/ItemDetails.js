@@ -16,13 +16,13 @@ export class ItemDetails extends Component {
     itemId: PropTypes.oneOfType([
       PropTypes.string.isRequired,
       PropTypes.number.isRequired
-    ]).isRequired,
+    ]),
     getData: PropTypes.func.isRequired
   }
 
   state = {
-    item: {},
-    isLoading: true,
+    item: null,
+    isLoading: false,
     error: null
   }
 
@@ -45,6 +45,9 @@ export class ItemDetails extends Component {
 
   updateData() {
     const { itemId, getData } = this.props
+    if (!itemId) {
+      return
+    }
 
     this.setState({ isLoading: true, error: null })
 

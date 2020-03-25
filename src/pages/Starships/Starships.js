@@ -18,7 +18,7 @@ const ShipList = withApiService({
 
 class Starships extends Component {
   state = {
-    starshipId: 1
+    starshipId: null
   }
 
   selectStarship = (id) => {

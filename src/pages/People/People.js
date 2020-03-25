@@ -18,7 +18,7 @@ const PeopleList = withApiService({
 
 class People extends Component {
   state = {
-    personId: 1
+    personId: null
   }
 
   selectPerson = (id) => {

@@ -27,6 +27,8 @@ class App extends Component {
     const { apiService } = this.state
     const serviceName = apiService instanceof SWApiService ? 'Server' : 'Mock'
 
+    document.title = `Star Wars DB using ${serviceName} API`
+
     return (
       <ApiContext.Provider value={ apiService }>
         <div className="container">
