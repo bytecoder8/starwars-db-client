@@ -3,6 +3,13 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 
 
+const links = [
+  { to: '/', title: 'Home', exact: true },
+  { to: '/people', title: 'People' },
+  { to: '/planets', title: 'Planets' },
+  { to: '/starships', title: 'Starships' }
+]
+
 export default function Navbar(props) {
   const { serviceName, onServiceChange } = props
 
@@ -12,18 +19,14 @@ export default function Navbar(props) {
 
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <NavLink to="/" exact className="nav-link">Home</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/people" className="nav-link">People</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/planets" className="nav-link">Planets</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/starships" className="nav-link">Starships</NavLink>
-          </li>
+          { links.map( link => 
+            <NavLink
+              to={ link.to }
+              exact={ link.exact }
+              key={ link.to }
+              className="nav-link"
+            >{ link.title }</NavLink>
+          )}
         </ul>
 
         <form className="form-inline ml-3">

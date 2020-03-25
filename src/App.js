@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import ApiContext from './context'
 import Navbar from './components/Navbar'
-import HomePage from './pages/Home'
-import PlanetsPage from './pages/Planets'
-import PeoplePage from './pages/People'
-import StarshipsPage from './pages/Starships'
 import MockApiService from './services/MockApiService'
 import SWApiService from './services/SWApiService'
-import ErrorPage from './pages/ErrorPage'
+import Routes from './components/Routes'
 
 
 class App extends Component {
@@ -37,13 +33,7 @@ class App extends Component {
         <Router>
           <div className="container">
             <Navbar onServiceChange={ this.toggleService } serviceName={ serviceName } />
-            <Switch>
-              <Route path="/" exact component={ HomePage } />
-              <Route path="/planets" component={ PlanetsPage } />
-              <Route path="/people" component={ PeoplePage } />
-              <Route path="/starships" component={ StarshipsPage } />
-              <Route path="*" component={ ErrorPage } />
-            </Switch>
+            <Routes />
           </div>
         </Router>
       </ApiContext.Provider>
