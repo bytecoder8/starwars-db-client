@@ -8,6 +8,7 @@ import PeoplePage from './pages/People'
 import StarshipsPage from './pages/Starships'
 import MockApiService from './services/MockApiService'
 import SWApiService from './services/SWApiService'
+import ErrorPage from './pages/ErrorPage'
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
               <Route path="/planets" component={ PlanetsPage } />
               <Route path="/people" component={ PeoplePage } />
               <Route path="/starships" component={ StarshipsPage } />
+              <Route path="*" component={ ErrorPage } />
             </Switch>
           </div>
         </Router>

@@ -8,7 +8,7 @@ export default function Navbar(props) {
 
   return(
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="/">StarWars Database</a>
+      <NavLink to="/" exact className="navbar-brand">StarWars Database</NavLink>
 
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav ml-auto">
