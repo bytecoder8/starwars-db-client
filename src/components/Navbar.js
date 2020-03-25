@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 
 export default function Navbar(props) {
@@ -12,19 +13,18 @@ export default function Navbar(props) {
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item active">
-            <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+            <Link to="/" className="nav-link">Home</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/people">People</a>
+            <Link to="/people" className="nav-link">People</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/planets">Planets</a>
+            <Link to="/planets" className="nav-link">Planets</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/starships">Starships</a>
+            <Link to="/starships" className="nav-link">Starships</Link>
           </li>
         </ul>
-
 
         <form className="form-inline ml-3">
           Current API: { serviceName }

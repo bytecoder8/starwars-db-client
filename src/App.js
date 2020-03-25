@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ApiContext from './context'
 import Navbar from './components/Navbar'
-import RandomPlanet from './components/RandomPlanet'
+import HomePage from './pages/Home'
+import PlanetsPage from './pages/Planets'
 import PeoplePage from './pages/People'
 import StarshipsPage from './pages/Starships'
 import MockApiService from './services/MockApiService'
@@ -31,13 +33,17 @@ class App extends Component {
 
     return (
       <ApiContext.Provider value={ apiService }>
-        <div className="container">
-          <Navbar onServiceChange={ this.toggleService } serviceName={ serviceName } />
-          <h2>Random Planet</h2>
-          <RandomPlanet />
-          <PeoplePage />
-          <StarshipsPage />
-        </div>
+        <Router>
+          <div className="container">
+            <Navbar onServiceChange={ this.toggleService } serviceName={ serviceName } />
+            <Switch>
+              <Route path="/" exact component={ HomePage } />
+              <Route path="/planets" component={ PlanetsPage } />
+              <Route path="/people" component={ PeoplePage } />
+              <Route path="/starships" component={ StarshipsPage } />
+            </Switch>
+          </div>
+        </Router>
       </ApiContext.Provider>
     );
   }

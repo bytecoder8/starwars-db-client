@@ -22,6 +22,8 @@ class MockApiService {
     })
   }
 
+
+  // People
   _generatePerson(id) {
     const gender = faker.random.arrayElement(['male', 'female'])
     return {
@@ -48,12 +50,9 @@ class MockApiService {
     return this._delayed(this._generatePerson(id))
   }
 
-  getAllPlanets = () => {
-    return this._delayed([])
-  }
-
-  getPlanet = (id) => {
-    return this._delayed({
+  // Planets
+  _generatePlanet(id) {
+    return {
       id,
       name: faker.name.firstName(),
       population: faker.random.number(100000000),
@@ -63,10 +62,22 @@ class MockApiService {
       climate: '',
       terrain: '',
       surfaceWater: faker.random.number(100)
+    }
+  }
+
+  getAllPlanets = () => {
+    const items = Array.from(Array(10), (value, index) => {
+      return this._generatePlanet(index + 1)
     })
+    return this._delayed(items)
+  }
+
+  getPlanet = (id) => {
+    return this._delayed(this._generatePlanet(id))
   }
 
 
+  // Ships
   _generateShip(id) {
     return {
       id,
