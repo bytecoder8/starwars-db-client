@@ -30,7 +30,7 @@ class App extends Component {
 
     return (
       <ApiContext.Provider value={ apiService }>
-        <Router>
+        <Router basename={ process.env.PUBLIC_URL }>
           <div className="container">
             <Navbar onServiceChange={ this.toggleService } serviceName={ serviceName } />
             <Routes />
