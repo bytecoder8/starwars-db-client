@@ -37,6 +37,17 @@ class MockResourceGenerator {
       id,
       name: faker.name.firstName(),
       mass: faker.random.number({ min: 50, max: 200 }),
+      model: faker.name.firstName(),
+      manufacturer: faker.name.firstName(),
+      class: faker.name.firstName(),
+      cost: faker.random.number({ min: 500000, max: 200000000 }),
+      hyperdrive: faker.random.number({ min: 1, max: 10 }),
+      mglt: faker.random.number({ min: 10, max: 20 }),
+      length: faker.random.number({ min: 100000, max: 200000000 }),
+      cargo: faker.random.number({ min: 1000, max: 100000 }),
+      crew: faker.random.number({ min: 1, max: 100000 }),
+      passengers: faker.random.number({ min: 1, max: 100000 }),
+      imageSrc: `https://starwars-visualguide.com/assets/img/starships/${id}.jpg`
     }
   }
 }

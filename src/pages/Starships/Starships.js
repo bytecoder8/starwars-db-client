@@ -38,7 +38,28 @@ class Starships extends Component {
 
     const details =
       <ShipDetails itemId={ starshipId }>
-        <Record field="name" label="Name" />
+        <Record field="model" label="Model" />
+        <Record field="manufacturer" label="Manufacturer" />
+        <Record field="class" label="Class" />
+        <Record field="cost" label="Cost">
+          { v => `${Number(v).toLocaleString()} credits` }
+        </Record>
+        <Record field="hyperdrive" label="Hyperdrive Rating" />
+        <Record field="mglt" label="MGLT">
+          {v => Number(v).toFixed(2) }
+        </Record>
+        <Record field="length" label="Length">
+          { v => `${Number(v).toLocaleString()}m` }
+        </Record>
+        <Record field="cargo" label="Cargo Capacity">
+          { v => `${Number(v).toLocaleString()} metric tons` }
+        </Record>
+        <Record field="crew" label="Minimum Crew">
+          { v => Number(v).toLocaleString() }
+        </Record>
+        <Record field="passengers" label="Passengers">
+          { v => Number(v).toLocaleString() }
+        </Record>
       </ShipDetails>
 
     return (

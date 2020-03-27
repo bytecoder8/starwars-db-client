@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../Loader'
 import ErrorMessage from '../ErrorMessage'
+import './ItemDetails.css'
 
 
-export const Record = ({ item, field, label }) => (
-  <li className="list-group-item">
-    {label}: { item[field] }
-  </li>
-)
+export const Record = ({ item, field, label, children }) => {
+  const value = (typeof children === 'function') ? children(item[field]) : item[field]
+
+  return(
+    <li className="list-group-item">
+      { label }: { value }
+    </li>
+  )
+}
 
 
 export class ItemDetails extends Component {
@@ -63,7 +68,6 @@ export class ItemDetails extends Component {
 
   render() {
     const { isLoading, error, item } = this.state
-    const { itemId } = this.props
 
     if (error) {
       return <ErrorMessage error={ error } />
@@ -79,7 +83,12 @@ export class ItemDetails extends Component {
 
     return (
       <div className="card">
-        <h3 className="card-header">{ item.name } #{ itemId }</h3>
+        {item.imageSrc &&
+          <div className="image-wrapper">
+            <img src={item.imageSrc} class="img-fluid" alt="Item Details" />
+          </div>
+        }
+        <h3 className="card-header">{ item.name }</h3>
         <div className="card-body">
           <ul className="list-group item-details">
             { 

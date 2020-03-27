@@ -23,8 +23,9 @@ class SWApiTransformer extends ApiTransformer {
   }
 
   transformPerson(person) {
+    const id = this.extractId(person)
     return ({
-      id: this.extractId(person),
+      id,
       name: person.name,
       height: person.height,
       mass: person.mass,
@@ -32,14 +33,27 @@ class SWApiTransformer extends ApiTransformer {
       skinColor: person.skin_color,
       eyeColor: person.eye_color,
       birthYear: person.birth_year,
-      gender: person.gender
+      gender: person.gender,
+      imageSrc: `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`
     })
   }
 
   transformShip(ship) {
+    const id = this.extractId(ship)
     return ({
-      id: this.extractId(ship),
-      name: ship.name
+      id,
+      name: ship.name,
+      model: ship.model,
+      manufacturer: ship.manufacturer,
+      class: ship.starship_class,
+      cost: ship.cost_in_credits,
+      hyperdrive: ship.hyperdrive_rating,
+      mglt: ship.MGLT,
+      length: ship.length,
+      cargo: ship.cargo_capacity,
+      crew: ship.crew,
+      passengers: ship.passengers,
+      imageSrc: `https://starwars-visualguide.com/assets/img/starships/${id}.jpg`
     })
   }
 }
