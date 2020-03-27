@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import Row from '../../components/Row'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import ItemList from '../../components/ItemList'
@@ -16,45 +17,34 @@ const PeopleList = withApiService({
   getData: 'getAllPeople'
 })(withData(ItemList))
 
-class People extends Component {
-  state = {
-    personId: null
-  }
 
-  selectPerson = (id) => {
-    this.setState({
-      personId: id
-    })
-  }
+const People = ( { match, history } ) => {
+  const { id } = match.params
 
-  render() {
-    const { personId } = this.state
+  const list = 
+    <PeopleList
+      selectedItemId={ id }
+      onItemSelected={ id => history.push(id.toString()) }
+      renderItem={ item => `${item.name}` }
+    />
 
-    const list = 
-      <PeopleList
-        selectedItemId={ personId }
-        onItemSelected={ this.selectPerson }
-        renderItem={ item => `${item.name}` }
-      />
+  const details = 
+    <PersonDetails itemId={ id }>
+      <Record field="height" label="Height" />
+      <Record field="gender" label="Gender" />
+      <Record field="birthYear" label="Birthyear" />
+      <Record field="eyeColor" label="Eye Color" />
+      <Record field="hairColor" label="Hair Color" />
+    </PersonDetails>
 
-    const details = 
-      <PersonDetails itemId={ personId }>
-        <Record field="height" label="Height" />
-        <Record field="gender" label="Gender" />
-        <Record field="birthYear" label="Birthyear" />
-        <Record field="eyeColor" label="Eye Color" />
-        <Record field="hairColor" label="Hair Color" />
-      </PersonDetails>
-
-    return (
-      <div className="people-page">
-        <h2 className="mt-4">People</h2>
-        <ErrorBoundary>
-          <Row left={ list } right={ details } />
-        </ErrorBoundary>
-      </div>
-    )
-  }
+  return (
+    <div className="people-page">
+      <h2 className="mt-4">People</h2>
+      <ErrorBoundary>
+        <Row left={ list } right={ details } />
+      </ErrorBoundary>
+    </div>
+  )
 }
 
-export default People
+export default withRouter(People)

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { withRouter } from "react-router-dom"
 import ItemList from '../../components/ItemList'
 import ItemDetails, { Record } from '../../components/ItemDetails'
 import withApiService from '../../hocs/withApiService'
@@ -16,42 +17,30 @@ const PlanetList = withApiService({
 })(withData(ItemList))
 
 
-class Planets extends Component {
-  state = {
-    planetId: null
-  }
+const Planets = ({ history, match } ) => {
+  const { id } = match.params
 
-  selectPlanet = (id) => {
-    this.setState({
-      planetId: id
-    })
-  }
+  const list = 
+    <PlanetList
+      selectedItemId={ id }
+      onItemSelected={ id => history.push(id.toString()) }
+    />
 
-  render() {
-    const { planetId } = this.state
+  const details =
+    <PlanetDetails itemId={ id }>
+      <Record field="name" label="Name" />
+      <Record field="diameter" label="Diameter" />
+      <Record field="population" label="Population" />
+    </PlanetDetails>
 
-    const list = 
-      <PlanetList
-        selectedItemId={ planetId }
-        onItemSelected={ this.selectPlanet }
-      />
-
-    const details =
-      <PlanetDetails itemId={ planetId }>
-        <Record field="name" label="Name" />
-        <Record field="diameter" label="Diameter" />
-        <Record field="population" label="Population" />
-      </PlanetDetails>
-
-    return (
-      <div className="planets-page">
-        <h2 className="mt-4">Planets</h2>
-        <ErrorBoundary>
-          <Row left={ list } right={ details } />
-        </ErrorBoundary>
-      </div>
-    )
-  }
+  return (
+    <div className="planets-page">
+      <h2 className="mt-4">Planets</h2>
+      <ErrorBoundary>
+        <Row left={ list } right={ details } />
+      </ErrorBoundary>
+    </div>
+  )
 }
 
-export default Planets
+export default withRouter(Planets)

@@ -34,7 +34,7 @@ export class ItemList extends Component {
 
     const elements = data.map( item => {
       let classNames = 'list-group-item'
-      if (item.id === selectedItemId) {
+      if (item.id === +selectedItemId) {
         classNames += ' active'
       }
 

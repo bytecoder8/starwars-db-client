@@ -11,9 +11,9 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={ HomePage } />
-      <Route path="/planets" component={ PlanetsPage } />
-      <Route path="/people" component={ PeoplePage } />
-      <Route path="/starships" component={ StarshipsPage } />
+      <Route path="/planets/:id?" component={ PlanetsPage } />
+      <Route path="/people/:id?" component={ PeoplePage } />
+      <Route path="/starships/:id?" component={ StarshipsPage } />
       <Route path="*" component={ ErrorPage } />
     </Switch>
   )

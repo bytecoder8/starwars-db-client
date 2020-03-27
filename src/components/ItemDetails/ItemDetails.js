@@ -85,7 +85,7 @@ export class ItemDetails extends Component {
       <div className="card">
         {item.imageSrc &&
           <div className="image-wrapper">
-            <img src={item.imageSrc} class="img-fluid" alt="Item Details" />
+            <img src={item.imageSrc} className="img-fluid" alt="Item Details" />
           </div>
         }
         <h3 className="card-header">{ item.name }</h3>

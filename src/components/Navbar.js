@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom'
 
 const links = [
   { to: '/', title: 'Home', exact: true },
-  { to: '/people', title: 'People' },
-  { to: '/planets', title: 'Planets' },
-  { to: '/starships', title: 'Starships' }
+  { to: '/people/', title: 'People' },
+  { to: '/planets/', title: 'Planets' },
+  { to: '/starships/', title: 'Starships' }
 ]
 
 export default function Navbar(props) {
