@@ -60,7 +60,7 @@ class SWApiTransformer extends ApiTransformer {
 
 
 class SWApiService extends AbstractApi {
-  baseUrl = 'https://swapi.co/api'
+  baseUrl = 'https://swapi.dev/api'
   transformer = new SWApiTransformer()
   
   static get MAX_PLANETS() {
