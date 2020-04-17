@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/starwars-db-client/build/static/css/main.349794c0.chunk.css",
-    "main.js": "/starwars-db-client/build/static/js/main.d1a508f1.chunk.js",
-    "main.js.map": "/starwars-db-client/build/static/js/main.d1a508f1.chunk.js.map",
+    "main.js": "/starwars-db-client/build/static/js/main.b7cd6144.chunk.js",
+    "main.js.map": "/starwars-db-client/build/static/js/main.b7cd6144.chunk.js.map",
     "runtime-main.js": "/starwars-db-client/build/static/js/runtime-main.7ae400f8.js",
     "runtime-main.js.map": "/starwars-db-client/build/static/js/runtime-main.7ae400f8.js.map",
-    "static/js/2.f3b8bf7c.chunk.js": "/starwars-db-client/build/static/js/2.f3b8bf7c.chunk.js",
-    "static/js/2.f3b8bf7c.chunk.js.map": "/starwars-db-client/build/static/js/2.f3b8bf7c.chunk.js.map",
+    "static/js/2.b060c42e.chunk.js": "/starwars-db-client/build/static/js/2.b060c42e.chunk.js",
+    "static/js/2.b060c42e.chunk.js.map": "/starwars-db-client/build/static/js/2.b060c42e.chunk.js.map",
     "index.html": "/starwars-db-client/build/index.html",
-    "precache-manifest.8013401ca1293aeb7160ca1fa5a84ee5.js": "/starwars-db-client/build/precache-manifest.8013401ca1293aeb7160ca1fa5a84ee5.js",
+    "precache-manifest.ae82b9e0e72821907bf57d3d1f640785.js": "/starwars-db-client/build/precache-manifest.ae82b9e0e72821907bf57d3d1f640785.js",
     "service-worker.js": "/starwars-db-client/build/service-worker.js",
     "static/css/main.349794c0.chunk.css.map": "/starwars-db-client/build/static/css/main.349794c0.chunk.css.map",
-    "static/js/2.f3b8bf7c.chunk.js.LICENSE": "/starwars-db-client/build/static/js/2.f3b8bf7c.chunk.js.LICENSE"
+    "static/js/2.b060c42e.chunk.js.LICENSE": "/starwars-db-client/build/static/js/2.b060c42e.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.7ae400f8.js",
-    "static/js/2.f3b8bf7c.chunk.js",
+    "static/js/2.b060c42e.chunk.js",
     "static/css/main.349794c0.chunk.css",
-    "static/js/main.d1a508f1.chunk.js"
+    "static/js/main.b7cd6144.chunk.js"
   ]
 }
